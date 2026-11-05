@@ -1,0 +1,42 @@
+{
+  "name": "bulls-and-cows",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md}": [
+      "eslint --fix --cache",
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksandrAndreew-Dev/Bulls-and-Cows.git"
+  },
+  "keywords": [],
+  "author": "Aleksandr Andreew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleksandrAndreew-Dev/Bulls-and-Cows/issues"
+  },
+  "homepage": "https://github.com/AleksandrAndreew-Dev/Bulls-and-Cows#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  }
+}
