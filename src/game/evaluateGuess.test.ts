@@ -25,4 +25,10 @@ describe("evaluateGuess", () => {
   test("should return {bulls: 0, cows: 0} for empty guess", () => {
     expect(evaluateGuess("1234", "")).toEqual({ bulls: 0, cows: 0 });
   });
+  test("hex: case-insensitive full match", () => {
+    expect(evaluateGuess("aB3", "AB3")).toEqual({ bulls: 3, cows: 0 });
+  });
+  test("hex: case-insensitive cows count", () => {
+    expect(evaluateGuess("1a3", "A13")).toEqual({ bulls: 1, cows: 2 });
+  });
 });
