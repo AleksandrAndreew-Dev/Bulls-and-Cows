@@ -4,20 +4,21 @@ type Evaluation = {
 };
 
 export function evaluateGuess(secret: string, guess: string): Evaluation {
-  const fullMatch = guess === secret;
-  if (fullMatch) {
+  const secretLower = secret.toLowerCase();
+  const guessLower = guess.toLowerCase();
+
+  if (guessLower === secretLower) {
     return {
-      bulls: secret.length,
+      bulls: secretLower.length,
       cows: 0,
     };
   }
-  const bulls = secret.split("").reduce((acc, char, index) => {
-    return acc + (char === guess[index] ? 1 : 0);
+  const bulls = secretLower.split("").reduce((acc, char, index) => {
+    return acc + (char === guessLower[index] ? 1 : 0);
   }, 0);
-  const totalMatching = guess
-    .toLowerCase()
+  const totalMatching = guessLower
     .split("")
-    .filter((char) => secret.includes(char)).length;
+    .filter((char) => secretLower.includes(char)).length;
 
   const cows = totalMatching - bulls;
 
