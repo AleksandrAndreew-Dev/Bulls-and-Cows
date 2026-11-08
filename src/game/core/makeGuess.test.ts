@@ -9,8 +9,8 @@ describe("makeGuess", () => {
     const result = makeGuess(newGame, "1234");
 
     expect(result.history.length).toBe(1);
-    expect(result.history[0].guess).toBe("1234");
-    expect(result.history[0].count).toBe(1);
+    expect(result.history[0]?.guess).toBe("1234");
+    expect(result.history[0]?.count).toBe(1);
   });
   test("does not mutate original game", () => {
     const newGame = testGame("1234");
