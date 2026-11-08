@@ -8,23 +8,19 @@ export function isValidGuess(
   if (guess == undefined) {
     return false;
   }
+
   if (guess.length === 0) return false;
+
   if (typeof guess !== "string" || guess.length !== length) {
     return false;
   }
 
-  for (const char of guess) {
-    if (!createDigitValidator(base)(char)) return false;
-  }
+  const lower = guess.toLowerCase();
+  const isValidDigit = createDigitValidator(base);
 
-  const seen = new Set();
-  for (const char of guess) {
-    const charLower = char.toLowerCase();
-    if (seen.has(charLower)) {
-      return false;
-    }
-    seen.add(charLower);
-  }
+  const allDigitsValid = [...lower].every(isValidDigit);
+  if (!allDigitsValid) return false;
 
-  return true;
+  const allUnique = new Set([...lower]).size === lower.length;
+  return allUnique;
 }
