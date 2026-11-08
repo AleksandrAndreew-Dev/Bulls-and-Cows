@@ -31,4 +31,19 @@ describe("evaluateGuess", () => {
   test("hex: case-insensitive cows count", () => {
     expect(evaluateGuess("1a3", "A13")).toEqual({ bulls: 1, cows: 2 });
   });
+  test("duplicate chars in guess: cows should not overcount", () => {
+    expect(evaluateGuess("1234", "1111")).toEqual({ bulls: 1, cows: 0 });
+  });
+
+  test("duplicate chars in guess: mixed case", () => {
+    expect(evaluateGuess("1234", "1123")).toEqual({ bulls: 1, cows: 2 });
+  });
+
+  test("all same wrong digit: no false cows", () => {
+    expect(evaluateGuess("1234", "4444")).toEqual({ bulls: 1, cows: 0 });
+  });
+
+  test("hex case-insensitive with duplicates", () => {
+    expect(evaluateGuess("aB3", "AA3")).toEqual({ bulls: 2, cows: 0 });
+  });
 });
