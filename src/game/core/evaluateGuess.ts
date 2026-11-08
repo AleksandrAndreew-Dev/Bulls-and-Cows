@@ -18,7 +18,10 @@ export function evaluateGuess(secret: string, guess: string): Evaluation {
   }, 0);
   const totalMatching = guessLower
     .split("")
-    .filter((char) => secretLower.includes(char)).length;
+    .filter(
+      (char, index, self) =>
+        self.indexOf(char) === index && secretLower.includes(char),
+    ).length;
 
   const cows = totalMatching - bulls;
 
