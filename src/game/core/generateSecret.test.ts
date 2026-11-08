@@ -5,7 +5,6 @@ import { generateSecret, generateNotRandom } from "./generateSecret.js";
 
 describe("generateSecret", () => {
   test("generates a secret of the given length", () => {
-    console.log(generateSecret(4, 10));
     expect(generateSecret(4, 10)).toHaveLength(4);
   });
   test("generates a secret of unique values", () => {
@@ -19,5 +18,10 @@ describe("generateSecret", () => {
   });
   test("length cannot be greater than base", () => {
     expect(() => generateSecret(3, 2)).toThrow(RangeError);
+  });
+  test("deterministic with custom random", () => {
+    const random = generateNotRandom();
+    const secret = generateSecret(4, 10, random);
+    expect(secret).toBe("0123");
   });
 });
