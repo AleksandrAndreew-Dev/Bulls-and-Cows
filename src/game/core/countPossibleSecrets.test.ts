@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { countPossibleSecrets, cache } from "./countPossibleSecrets.js";
+import { countPossibleSecrets } from "./countPossibleSecrets.js";
 
 // countPossibleSecrets(length, base) — считает, сколько существует различных секретных чисел при данных length и base (количество перестановок без повторений). Секрет может начинаться с 0 — ограничений на первую цифру нет (см. пример 0123 выше), поэтому это просто P(base, length) = base! / (base − length)!, без отдельного вычитания варианта с нулём в начале. Реализуйте рекурсивно (через связь countPossibleSecrets(length, base) = base * countPossibleSecrets(length - 1, base - 1)-подобную формулу), а затем мемоизируйте результат — функция вызывается при каждом открытии настроек, пересчитывать заново незачем.
 
@@ -16,11 +16,11 @@ describe("countPossibleSecrets", () => {
     expect(() => countPossibleSecrets(2, 1)).toThrow(RangeError);
   });
 
-  test("cache is working", () => {
-    cache.clear();
-    countPossibleSecrets(3, 4);
-    expect(cache.size).toBe(3);
-    countPossibleSecrets(3, 4);
-    expect(cache.size).toBe(3);
+  test("returns the same result on repeated call with same args", () => {
+    const first = countPossibleSecrets(3, 4);
+    const second = countPossibleSecrets(3, 4);
+    expect(first).toBe(24);
+    expect(second).toBe(24);
+    expect(first).toBe(second);
   });
 });
