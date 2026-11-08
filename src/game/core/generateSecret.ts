@@ -6,13 +6,22 @@ export function generateSecret(
   if (length > base) {
     throw new RangeError("Length cannot be greater than base");
   }
-  const secretSet = new Set();
+
   const allowed = "0123456789abcdef";
-  while (secretSet.size < length) {
-    const char = allowed[Math.floor(random() * base)];
-    secretSet.add(char);
-  }
-  return Array.from(secretSet).join("");
+  const pick = (acc: Set<string>): string => {
+    if (acc.size === length) {
+      return Array.from(acc).join("");
+    }
+
+    const char = allowed.charAt(Math.floor(random() * base));
+
+    if (acc.has(char)) {
+      return pick(acc);
+    }
+    return pick(new Set([...acc, char]));
+  };
+
+  return pick(new Set());
 }
 
 export function generateNotRandom() {
