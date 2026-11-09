@@ -19,22 +19,45 @@ export function saveRecords(record: GameRecord) {
 export function renderRecords(container: HTMLElement): void {
   const records = loadRecords();
   const recordsElement = createElement("div", "records");
-  const recordsList = createElement("ul", "record__list");
-  records.forEach((record: GameRecord) => {
-    recordsList.appendChild(createElement("li", "record__date", record.date));
-    recordsList.appendChild(
-      createElement("li", "record__length", record.length.toString()),
+  recordsElement.append(createElement("h2", "records__title", "Best games"));
+
+  if (records.length === 0) {
+    recordsElement.append(
+      createElement("p", "records__empty", "No games played yet."),
     );
-    recordsList.appendChild(
-      createElement("li", "record__base", record.base.toString()),
-    );
-    recordsList.appendChild(
-      createElement("li", "record__attempts", record.attempts.toString()),
-    );
-    recordsList.appendChild(
-      createElement("li", "record__time", record.time.toString()),
-    );
+    container.append(recordsElement);
+    return;
+  }
+
+  const tableWrapper = createElement("div", "records__table-wrapper");
+  const recordsTable = createElement("table", "records__table");
+  const tableHead = createElement("thead");
+  const headerRow = createElement("tr");
+  ["Date", "Length", "Base", "Attempts", "Time"].forEach((label) => {
+    const header = document.createElement("th");
+    header.textContent = label;
+    header.scope = "col";
+    headerRow.append(header);
   });
-  recordsElement.append(recordsList);
+  tableHead.append(headerRow);
+  recordsTable.append(tableHead);
+
+  const tableBody = createElement("tbody");
+  records.forEach((record: GameRecord) => {
+    const row = createElement("tr");
+    const values = [
+      new Date(record.date).toLocaleString(),
+      record.length.toString(),
+      record.base.toString(),
+      record.attempts.toString(),
+      `${(record.time / 1000).toFixed(1)} s`,
+    ];
+    values.forEach((value) => row.append(createElement("td", "", value)));
+    tableBody.append(row);
+  });
+
+  recordsTable.append(tableBody);
+  tableWrapper.append(recordsTable);
+  recordsElement.append(tableWrapper);
   container.append(recordsElement);
 }
