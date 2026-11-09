@@ -35,3 +35,11 @@ export interface GuessHistory {
   guess: Guess;
   result: MoveResult;
 }
+
+export interface GameRecord {
+  length: number;
+  base: Base;
+  attempts: number;
+  time: number;
+  date: string;
+}
