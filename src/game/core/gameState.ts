@@ -10,7 +10,7 @@ export function StartGame(config = DEFAULT_CONFIG): Game {
   const game: Game = {
     isNewGame: true,
     status: "playing",
-    secret: generateSecret(),
+    secret: generateSecret(config.length, config.base),
     history: [],
     config: config,
     totalTime: 0,
