@@ -2,3 +2,9 @@ node_modules/
 .vitest/
 blackbox/
 .eslintcache
+dist/
+*.map
+vitest.config.js
+vitest.config.d.ts
+
+
